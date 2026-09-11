@@ -1,4 +1,4 @@
-let estudiantes = [];
+let estudiantes = JSON.parse(localStorage.getItem("estudiantes")) || [];
 let estudianteEditando = null;
 const formulario = document.querySelector("#formEstudiante");
 
@@ -9,6 +9,17 @@ formulario.addEventListener("submit", function(event) {
     const nombre = document.querySelector("#nombre").value;
     const correo = document.querySelector("#correo").value;
     const programa = document.querySelector("#programa").value;
+
+    const existe = estudiantes.find(
+        estudiante =>
+            estudiante.correo === correo &&
+            estudiante.id !== estudianteEditando
+    );
+
+    if (existe) {
+        alert("Ya existe un estudiante con ese correo.");
+        return;
+    }
 
     if (estudianteEditando === null) {
         const estudiante = {
@@ -30,16 +41,27 @@ formulario.addEventListener("submit", function(event) {
         estudianteEditando = null;
     }
 
+    guardarEstudiantes();
     mostrarEstudiantes();
     formulario.reset();
     console.log("Formulario enviado");
 });
 
+function guardarEstudiantes() {
+
+    localStorage.setItem(
+        "estudiantes",
+        JSON.stringify(estudiantes)
+    );
+}
+
 function mostrarEstudiantes(lista = estudiantes) {
 
     const tabla = document.querySelector("#tablaEstudiantes");
+    const totalEstudiantes = document.querySelector("#totalEstudiantes");
 
     tabla.innerHTML = "";
+    totalEstudiantes.textContent = `Total estudiantes: ${estudiantes.length}`;
 
     lista.forEach(estudiante => {
 
@@ -57,15 +79,39 @@ function mostrarEstudiantes(lista = estudiantes) {
     });
 }
 
+const buscador = document.querySelector("#buscar");
+
+buscador.addEventListener("input", function() {
+
+    const texto = buscador.value.toLowerCase();
+
+    const resultado = estudiantes.filter(
+        estudiante =>
+            estudiante.nombre
+                .toLowerCase()
+                .includes(texto)
+    );
+
+    mostrarEstudiantes(resultado);
+});
 
 //Estas son las funciones para eliminar y editar estudiantes
 
 function eliminarEstudiante(id) {
 
+    const confirmar = confirm(
+        "¿Desea eliminar este estudiante?"
+    );
+
+    if (!confirmar) {
+        return;
+    }
+
     estudiantes = estudiantes.filter(
         estudiante => estudiante.id !== id
     );
 
+    guardarEstudiantes();
     mostrarEstudiantes();
 }
 
