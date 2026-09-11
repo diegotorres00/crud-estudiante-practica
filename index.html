@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de estudiantes</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <main class="container">
+        <h1>Gestión de estudiantes</h1>
+
+        <section class="formulario">
+            <h2>Registrar estudiante</h2>
+
+            <form id="formEstudiante">
+                <div>
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" required>
+                </div>
+
+                <div>
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" id="correo" required>
+                </div>
+
+                <div>
+                    <label for="programa">Programa</label>
+                    <select id="programa" required>
+                        <option value="">Seleccione</option>
+                        <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+                        <option value="Ingeniería Multimedia">Ingeniería Multimedia</option>
+                        <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+                    </select>
+                </div>
+
+                <button type="submit">Guardar estudiante</button>
+            </form>
+        </section>
+
+        <section class="busqueda">
+            <input type="text" id="buscar" placeholder="Buscar estudiante...">
+        </section>
+
+        <section>
+            <h2>Estudiantes registrados</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Programa</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaEstudiantes"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
