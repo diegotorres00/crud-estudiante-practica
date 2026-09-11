@@ -57,6 +57,9 @@ function mostrarEstudiantes(lista = estudiantes) {
     });
 }
 
+
+//Estas son las funciones para eliminar y editar estudiantes
+
 function eliminarEstudiante(id) {
 
     estudiantes = estudiantes.filter(
